@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Replace https://your-site.pages.dev with your real domain after deployment. -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://your-site.pages.dev/</loc></url>
+  <url><loc>https://your-site.pages.dev/explore</loc></url>
+  <url><loc>https://your-site.pages.dev/virtual-museum</loc></url>
+  <url><loc>https://your-site.pages.dev/store</loc></url>
+  <url><loc>https://your-site.pages.dev/exhibitions</loc></url>
+  <url><loc>https://your-site.pages.dev/artists</loc></url>
+  <url><loc>https://your-site.pages.dev/about</loc></url>
+  <url><loc>https://your-site.pages.dev/contact</loc></url>
+  <url><loc>https://your-site.pages.dev/privacy</loc></url>
+  <url><loc>https://your-site.pages.dev/terms</loc></url>
+</urlset>

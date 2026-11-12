@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /dashboard
+
+# Replace with your real domain after deployment
+Sitemap: https://your-site.pages.dev/sitemap.xml
