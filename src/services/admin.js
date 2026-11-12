@@ -22,7 +22,7 @@ export const listAllArtworks = async () => {
   const rows = must(
     await supabase
       .from('artworks')
-      .select('*, categories(slug,name), profiles(id,username,display_name,country,avatar_path), artwork_likes(count)')
+      .select('*, categories(slug,name), profiles!owner_id(id,username,display_name,country,avatar_path), artwork_likes(count)')
       .order('created_at', { ascending: false })
       .limit(500),
   );

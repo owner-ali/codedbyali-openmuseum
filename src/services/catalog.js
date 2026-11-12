@@ -57,7 +57,7 @@ export function normalizeArtist(row) {
 }
 
 const ART_SELECT =
-  '*, categories(slug,name), profiles(id,username,display_name,country,avatar_path), artwork_likes(count)';
+  '*, categories(slug,name), profiles!owner_id(id,username,display_name,country,avatar_path), artwork_likes(count)';
 
 export async function fetchLiveCatalog() {
   const [cats, arts, exh, settings, counts] = await Promise.all([

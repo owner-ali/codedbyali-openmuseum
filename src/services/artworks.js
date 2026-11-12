@@ -4,7 +4,7 @@ import { slugify } from '../lib/format';
 import { removeFiles, uploadWithProgress } from './storage';
 import { normalizeArtwork } from './catalog';
 
-const SELECT = '*, categories(slug,name), profiles(id,username,display_name,country,avatar_path), artwork_likes(count)';
+const SELECT = '*, categories(slug,name), profiles!owner_id(id,username,display_name,country,avatar_path), artwork_likes(count)';
 
 // Publishes a new artwork as "pending". Files go to artworks/<user id>/<random>.<ext>
 // (storage policy: users can only write inside their own folder).
