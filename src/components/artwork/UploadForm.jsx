@@ -6,6 +6,7 @@ import Button from '../common/Button';
 import { useAuth } from '../../context/AuthContext';
 import { useCatalog } from '../../context/CatalogContext';
 import { createArtwork } from '../../services/artworks';
+import { reviewArtwork } from '../../services/admin';
 import { ALLOWED_EXTENSIONS, MAX_IMAGE_MB, validateImage } from '../../lib/validators';
 
 const LICENSES = ['I own the copyright', 'CC BY (attribution)', 'CC BY-SA', 'CC0 (public domain dedication)', 'Other (explain in description)'];
@@ -56,7 +57,7 @@ function ImagePicker({ id, label, file, onFile, error, hint, required }) {
 }
 
 export default function UploadForm({ onDone }) {
-  const { user, profile } = useAuth();
+  const { user, profile, isAdmin } = useAuth();
   const { categories } = useCatalog();
   const [form, setForm] = useState({ title: '', description: '', categoryId: '', artist: profile?.display_name || '', license: '', confirm: false });
   const [tags, setTags] = useState([]);
@@ -105,7 +106,16 @@ export default function UploadForm({ onDone }) {
     setProgress(0);
     try {
       const art = await createArtwork({ user, form: { ...form, tags }, imageFile: image, previewFile: preview, onProgress: setProgress });
-      setCreated(art);
+      let autoApproved = false;
+      if (isAdmin) {
+        try {
+          await reviewArtwork(art.id, 'approved');
+          autoApproved = true;
+        } catch {
+          autoApproved = false;
+        }
+      }
+      setCreated({ ...art, autoApproved });
       onDone?.(art);
     } catch (err) {
       setFormError(err.message || 'Upload failed. Please try again.');
@@ -118,7 +128,11 @@ export default function UploadForm({ onDone }) {
       <div className="max-w-2xl space-y-5">
         <Notice tone="success">
           <p className="font-semibold">"{created.title}" was submitted.</p>
-          <p className="mt-1">It is now <strong>pending</strong>. A curator will review it, and it becomes public once approved. You can follow its status in My Artwork.</p>
+          {created.autoApproved ? (
+            <p className="mt-1">You are an admin, so it was <strong>approved</strong> straight away and is now public.</p>
+          ) : (
+            <p className="mt-1">It is now <strong>pending</strong>. A curator will review it, and it becomes public once approved. You can follow its status in My Artwork.</p>
+          )}
         </Notice>
         <Button variant="ghost" onClick={() => window.location.assign('/upload')}>Upload another</Button>
       </div>

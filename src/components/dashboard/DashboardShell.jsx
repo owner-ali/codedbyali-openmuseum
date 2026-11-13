@@ -4,8 +4,21 @@ export default function DashboardShell({ eyebrow, title, items, active, onSelect
       <p className="eyebrow mb-3">{eyebrow}</p>
       <h1 className="mb-8 font-display text-[clamp(2rem,5vw,3.5rem)] font-bold leading-none tracking-tight">{title}</h1>
       <div className="grid gap-8 lg:grid-cols-[250px_1fr]">
-        <nav aria-label={`${title} sections`} className="no-scrollbar -mx-5 overflow-x-auto px-5 lg:mx-0 lg:overflow-visible lg:px-0">
-          <ul className="flex gap-2 lg:flex-col">
+        <div className="lg:hidden">
+          <label htmlFor="dash-section" className="mb-2 block text-[0.65rem] uppercase tracking-[0.2em] text-muted">Section</label>
+          <select
+            id="dash-section"
+            value={active}
+            onChange={(e) => onSelect(e.target.value)}
+            className="h-12 w-full border border-neon/50 bg-panel px-4 text-base text-white outline-none focus:border-neon"
+          >
+            {items.map((it) => (
+              <option key={it.id} value={it.id}>{it.label}</option>
+            ))}
+          </select>
+        </div>
+        <nav aria-label={`${title} sections`} className="hidden lg:block">
+          <ul className="flex flex-col gap-2">
             {items.map((it) => {
               const Icon = it.icon;
               const on = active === it.id;
