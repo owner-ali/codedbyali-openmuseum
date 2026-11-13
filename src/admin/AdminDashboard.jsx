@@ -1,5 +1,5 @@
 import { useSearchParams } from 'react-router-dom';
-import { BarChart3, CheckCircle2, FileText, Flag, History, Layers, LayoutTemplate, ListChecks, MessageSquare, Palette, Settings as Cog, Star, UserCog, Users } from 'lucide-react';
+import { BarChart3, CheckCircle2, FileText, Flag, History, Layers, LayoutTemplate, ListChecks, MessageSquare, Palette, UploadCloud, Settings as Cog, Star, UserCog, Users } from 'lucide-react';
 import Seo from '../components/common/Seo';
 import DashboardShell from '../components/dashboard/DashboardShell';
 import RequireAuth from '../components/common/RequireAuth';
@@ -13,11 +13,13 @@ import Reports from './sections/Reports';
 import Comments from './sections/Comments';
 import Settings from './sections/Settings';
 import Logs from './sections/Logs';
+import BulkUpload from './sections/BulkUpload';
 
 const SECTIONS = [
   { id: 'analytics', label: 'Analytics', icon: BarChart3, render: () => <Analytics /> },
   { id: 'approvals', label: 'Approvals', icon: CheckCircle2, render: () => <Artworks mode="approvals" /> },
   { id: 'artwork', label: 'Artwork', icon: ListChecks, render: () => <Artworks mode="all" /> },
+  { id: 'bulk', label: 'Bulk upload', icon: UploadCloud, render: () => <BulkUpload /> },
   { id: 'featured', label: 'Featured', icon: Star, render: () => <Artworks mode="featured" /> },
   { id: 'users', label: 'Users', icon: Users, render: () => <UsersSection /> },
   { id: 'artists', label: 'Artists', icon: UserCog, render: () => <ArtistsSection /> },
